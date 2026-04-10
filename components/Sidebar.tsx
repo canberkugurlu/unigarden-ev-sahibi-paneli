@@ -14,7 +14,7 @@ const menuItems = [
   { href: "/dashboard/sifre", label: "Şifre Değiştir", icon: KeyRound },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -24,12 +24,19 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-gray-900 text-white flex flex-col">
-      <div className="p-6 border-b border-gray-700">
-        <h1 className="text-xl font-bold text-blue-400">UNIGARDEN</h1>
-        <p className="text-xs text-gray-400 mt-1">Ev Sahibi Portalı</p>
+    <aside className="w-64 h-full bg-gray-900 text-white flex flex-col">
+      <div className="p-5 border-b border-gray-700 flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-bold text-blue-400">UNIGARDEN</h1>
+          <p className="text-xs text-gray-400 mt-0.5">Ev Sahibi Portalı</p>
+        </div>
+        {onClose && (
+          <button onClick={onClose} className="md:hidden p-1 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        )}
       </div>
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {menuItems.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
           return (
