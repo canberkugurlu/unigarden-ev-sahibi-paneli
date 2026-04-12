@@ -1,17 +1,28 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Building2, User, TrendingUp, X } from "lucide-react";
+import { Building2, User, TrendingUp, X, Calendar, Coins } from "lucide-react";
 
 interface Sozlesme {
   id: string;
   ogrenci: { ad: string; soyad: string; telefon: string; email: string };
 }
+interface SahiplikKaydi {
+  id: string;
+  alisTarihi: string;
+  satisTarihi?: string | null;
+  alisFiyati?: number | null;
+  satisFiyati?: number | null;
+  notlar?: string | null;
+}
 interface Konut {
   id: string; blok: string; katNo: number; daireNo: string;
   tip: string; metrekare: number; kiraBedeli: number;
   durum: string; etap: number; sozlesmeler: Sozlesme[];
+  sahiplikler?: SahiplikKaydi[];
 }
+const fmtDate = (d?: string | null) => d ? new Date(d).toLocaleDateString("tr-TR") : "—";
+const fmtPara = (n?: number | null) => n != null ? `₺${n.toLocaleString("tr-TR")}` : "—";
 
 const DURUM_RENK: Record<string, string> = {
   Dolu: "bg-red-100 text-red-700",
@@ -124,6 +135,32 @@ export default function DairelerimPage() {
                 </div>
               ) : (
                 <p className="text-xs text-gray-300 italic">Kiracı yok</p>
+              )}
+
+              {/* Sahiplik Geçmişi */}
+              {k.sahiplikler && k.sahiplikler.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Sahiplik</p>
+                  <div className="space-y-1.5">
+                    {k.sahiplikler.map(s => (
+                      <div key={s.id} className="bg-blue-50/40 rounded-lg px-3 py-2 text-xs border border-blue-100">
+                        <div className="flex items-center justify-between gap-2 mb-0.5">
+                          <span className="flex items-center gap-1 text-gray-600">
+                            <Calendar size={10} /> {fmtDate(s.alisTarihi)} → {fmtDate(s.satisTarihi)}
+                          </span>
+                          {s.satisTarihi
+                            ? <span className="px-1.5 py-0.5 rounded-full bg-gray-200 text-gray-600">Satıldı</span>
+                            : <span className="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Aktif</span>}
+                        </div>
+                        <div className="flex items-center gap-3 text-gray-500">
+                          <span className="flex items-center gap-1"><Coins size={10} /> Alış: {fmtPara(s.alisFiyati)}</span>
+                          {s.satisFiyati != null && <span>Satış: {fmtPara(s.satisFiyati)}</span>}
+                        </div>
+                        {s.notlar && <p className="text-gray-400 mt-0.5">{s.notlar}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
           );
