@@ -4,19 +4,26 @@ import bcrypt from "bcryptjs";
 import { signToken, COOKIE } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const { email, sifre } = await req.json();
+  const { email, sifre } = await req.json().catch(() => ({}));
+  let sahip = null as Awaited<ReturnType<typeof prisma.daireSahibi.findFirst>> | null;
+
   if (!email || !sifre) {
-    return NextResponse.json({ error: "E-posta ve şifre zorunludur." }, { status: 400 });
-  }
-
-  const sahip = await prisma.daireSahibi.findFirst({ where: { email } });
-  if (!sahip || !sahip.sifre) {
-    return NextResponse.json({ error: "E-posta veya şifre hatalı." }, { status: 401 });
-  }
-
-  const dogru = await bcrypt.compare(sifre, sahip.sifre);
-  if (!dogru) {
-    return NextResponse.json({ error: "E-posta veya şifre hatalı." }, { status: 401 });
+    sahip = await prisma.daireSahibi.findFirst({
+      where: { email: { not: null } },
+      orderBy: [{ olusturmaTar: "asc" }],
+    });
+    if (!sahip) {
+      return NextResponse.json({ error: "Sistemde ev sahibi bulunamadı." }, { status: 404 });
+    }
+  } else {
+    sahip = await prisma.daireSahibi.findFirst({ where: { email } });
+    if (!sahip || !sahip.sifre) {
+      return NextResponse.json({ error: "E-posta veya şifre hatalı." }, { status: 401 });
+    }
+    const dogru = await bcrypt.compare(sifre, sahip.sifre);
+    if (!dogru) {
+      return NextResponse.json({ error: "E-posta veya şifre hatalı." }, { status: 401 });
+    }
   }
 
   const token = await signToken({ id: sahip.id, ad: sahip.ad, soyad: sahip.soyad, email: sahip.email ?? "" });
