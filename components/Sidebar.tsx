@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Building2, TrendingUp, FileText, Wrench, FolderOpen, KeyRound, LogOut } from "lucide-react";
+import { LayoutDashboard, Building2, TrendingUp, FileText, Wrench, FolderOpen, KeyRound, LogOut , CheckSquare} from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const menuItems = [
@@ -13,6 +13,7 @@ const menuItems = [
   { href: "/dashboard/bakim", label: "Bakım Talepleri", icon: Wrench },
   { href: "/dashboard/belgeler", label: "Belgeler", icon: FolderOpen },
   { href: "/dashboard/sifre", label: "Şifre Değiştir", icon: KeyRound },
+  { href: "/dashboard/gorevlerim", label: "Görevlerim", icon: CheckSquare, color: "bg-blue-500/20 text-blue-400" },
 ];
 
 export default function Sidebar() {
