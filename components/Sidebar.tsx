@@ -6,7 +6,7 @@ import { LayoutDashboard, Building2, TrendingUp, FileText, Wrench, FolderOpen, K
 import ThemeToggle from "./ThemeToggle";
 
 const menuItems = [
-  { href: "/dashboard", label: "Ana Panel", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/dairelerim", label: "Dairelerim", icon: Building2 },
   { href: "/dashboard/gelirler", label: "Kira Gelirleri", icon: TrendingUp },
   { href: "/dashboard/sozlesmeler", label: "Sözleşmeler", icon: FileText },
