@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, Building2, TrendingUp, FileText, Wrench, FolderOpen, KeyRound, LogOut } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const menuItems = [
   { href: "/dashboard", label: "Ana Panel", icon: LayoutDashboard },
