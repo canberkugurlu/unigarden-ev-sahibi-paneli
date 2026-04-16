@@ -61,7 +61,7 @@ export default function BakimPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-bold text-gray-800">Bakım Talepleri</h2>
+        <h2 className="text-lg font-bold text-gray-800">Talepler</h2>
         <p className="text-xs text-gray-400">{talepler.length} talep</p>
       </div>
 

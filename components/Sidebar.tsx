@@ -10,7 +10,7 @@ const menuItems = [
   { href: "/dashboard/dairelerim", label: "Dairelerim", icon: Building2 },
   { href: "/dashboard/gelirler", label: "Kira Gelirleri", icon: TrendingUp },
   { href: "/dashboard/sozlesmeler", label: "Sözleşmeler", icon: FileText },
-  { href: "/dashboard/bakim", label: "Bakım Talepleri", icon: Wrench },
+  { href: "/dashboard/bakim", label: "Talepler", icon: Wrench },
   { href: "/dashboard/belgeler", label: "Belgeler", icon: FolderOpen },
   { href: "/dashboard/sifre", label: "Şifre Değiştir", icon: KeyRound },
   { href: "/dashboard/gorevlerim", label: "Görevlerim", icon: CheckSquare, color: "bg-blue-500/20 text-blue-400" },

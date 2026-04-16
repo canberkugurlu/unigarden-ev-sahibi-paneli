@@ -81,6 +81,7 @@ model Ogrenci {
   notlar         String?
   sifre          String?
   olusturmaTar   DateTime      @default(now())
+  rol            String        @default("Aktif")
   sozlesmeler    Sozlesme[]
   bakimTalepleri BakimTalebi[]
 }
